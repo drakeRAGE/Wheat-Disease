@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Result</title>
+  <style>
+    /* Reset default margin and padding */
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* Hide scroll bars */
+      background-color: #1e0342; /* Dark background */
+      color: #9ac8cd; /* Light text color */
+      font-family: Arial, sans-serif; /* Optional: Set font family */
+    }
+
+    /* Style for the header */
+    h1 {
+      text-align: center; /* Center-align text */
+      margin-top: 50px; /* Adjust top margin */
+    }
+
+    /* Style for the container */
+    .image-container {
+      max-width: 200px; /* Set maximum width for the container */
+      margin: 0 auto; /* Center the container horizontally */
+      margin-top: 20px; /* Adjust top margin */
+      overflow: hidden; /* Hide overflow */
+      border: 1px solid #9ac8cd; /* Optional: Add border */
+      border-radius: 5px; /* Optional: Add border radius */
+    }
+
+    /* Style for the uploaded image */
+    img {
+      display: block; /* Make the image a block element */
+      width: 100%; /* Make the image fluid */
+      height: auto; /* Maintain aspect ratio */
+    }
+
+    /* Style for the predicted class */
+    h2 {
+      text-align: center; /* Center-align text */
+      margin-top: 20px; /* Adjust top margin */
+    }
+
+    /* Style for the predicted class text */
+    p {
+      text-align: center; /* Center-align text */
+      margin-top: 10px; /* Adjust top margin */
+      font-size: 18px; /* Optional: Adjust font size */
+    }
+
+    /* Style for the refresh button */
+    .refresh-button {
+      display: block; /* Display as block to stack buttons */
+      margin: 20px auto; /* Center buttons and add margin between them */
+      width: 700px; /* Fixed width for buttons */
+      height: 50px; /* Fixed height for buttons */
+      background-color: #0e46a3; /* Button background color */
+      color: white; /* Button text color */
+      font-size: 16px; /* Font size */
+      font-family: Arial, sans-serif; /* Set font family */
+      border: none; /* Remove border */
+      border-radius: 5px; /* Rounded corners */
+      cursor: pointer; /* Cursor style on hover */
+      text-align: center; /* Center align text */
+      line-height: 50px; /* Align text vertically */
+      transition: background-color 0.3s ease; /* Smooth transition effect */
+      text-decoration: none; /* Remove underline */
+    }
+
+    /* Hover effect for the refresh button */
+    .refresh-button:hover {
+      background-color: #09467f; /* Darker background color on hover */
+    }
+  </style>
+</head>
+<body>
+  <h1>Result</h1>
+  <div class="image-container">
+    <img src="{{ image_path }}" alt="Uploaded Image" />
+  </div>
+  <h2>Predicted Class:</h2>
+  <p>{{ predicted_class }}</p>
+  
+  <!-- Refresh button -->
+  <button class="refresh-button" onclick="goToPreview()">Resubmit</button>
+
+  <script>
+    function goToPreview() {
+      // Navigate back to the preview page (index.html)
+      window.location.href = "http://127.0.0.1:5000/#preview";
+    }
+  </script>
+</body>
+</html>

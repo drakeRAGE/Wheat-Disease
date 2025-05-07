@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wheat Disease Detection</title>
+    <style>
+      /* Reset default margin and padding */
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* Hide scroll bars */
+      }
+
+      /* Add some basic styling for the navigation bar */
+      nav {
+        background-color: #1e0342;
+        overflow: hidden;
+        width: 100%; /* Set navbar width to 100% */
+        position: fixed; /* Fixed position */
+        top: 0; /* Position at the top of the viewport */
+        z-index: 999; /* Ensure nav appears above other content */
+      }
+
+      nav a {
+        float: left;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+      }
+
+      nav a:hover {
+        background-color: #0e46a3;
+        color: #948979;
+      }
+
+      /* Style for the home section */
+      #home,
+      #about,
+      #preview {
+        height: 100vh; /* Set height to 100% of viewport height */
+        width: 100%; /* Set width to 100% of viewport width */
+        overflow: hidden; /* Hide overflow content */
+        padding-top: 60px; /* Ensure content doesn't get hidden under the fixed navbar */
+      }
+
+      /* Style for the home section */
+      #home {
+        position: relative; /* Ensure relative positioning for the overlay */
+        background-image: url(https://images.alphacoders.com/485/485408.jpg); /* Replace 'https://example.com/background.jpg' with your image URL */
+        background-size: cover;
+        color: beige;
+        text-align: center;
+        padding: 100px 0; /* Adjust padding as needed */
+      }
+
+      #home-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+        z-index: 0; /* Ensure the overlay stays behind text */
+      }
+
+      #home-content {
+        position: relative;
+        z-index: 1; /* Ensure text appears above the overlay */
+      }
+
+      #home h1 {
+        font-size: 48px; /* Adjust font size as needed */
+      }
+
+      #home p {
+        font-size: 24px; /* Adjust font size as needed */
+      }
+
+      /* Style for the about section */
+      #about,
+      #preview {
+        padding: 50px 10px; /* Adjust padding as needed */
+        width: 100%; /* Set width to 100% of viewport width */
+      }
+
+      /* Style for the about section */
+      #about {
+        background-color: #1e0342; /* Dark background */
+        color: #9ac8cd; /* Light text color */
+        text-align: center; /* Center-align text */
+        margin: auto;
+      }
+
+      /* Style for the preview section */
+      #preview {
+        background-color: #1e0342; /* Keep the background color */
+        color: #9ac8cd; /* Change the font color */
+        text-align: center; /* Center-align the text */
+      }
+
+      /* Style for the buttons */
+      #preview button,
+      #preview label {
+        display: block; /* Display as block to stack buttons */
+        margin: 20px auto; /* Center buttons and add margin between them */
+        width: 700px; /* Fixed width for buttons */
+        height: 50px; /* Fixed height for buttons */
+        background-color: #0e46a3; /* Button background color */
+        color: white; /* Button text color */
+        font-size: 16px; /* Font size */
+        font-family: Arial, sans-serif; /* Set font family */
+        border: none; /* Remove border */
+        border-radius: 5px; /* Rounded corners */
+        cursor: pointer; /* Cursor style on hover */
+        text-align: center; /* Center align text */
+        line-height: 50px; /* Align text vertically */
+        transition: background-color 0.3s ease; /* Smooth transition effect */
+      }
+
+      #preview button:hover,
+      #preview label:hover {
+        background-color: #09467f; /* Darker background color on hover */
+      }
+
+      /* Style for the file input */
+      #preview input[type="file"] {
+        display: none; /* Hide the default file input */
+      }
+
+      /* Style for the file display */
+      #file-display {
+        margin-top: 20px; /* Add some space between buttons and file display */
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About Project</a>
+      <a href="#preview">Preview</a>
+    </nav>
+
+    <div id="home">
+      <div id="home-overlay"></div>
+      <div id="home-content">
+        <h1>Welcome to Wheat Disease Detection</h1>
+        <p>This is a platform for detecting diseases in wheat crops.</p>
+      </div>
+    </div>
+
+    <!-- About Project Section -->
+    <div id="about">
+      <h2>About Project</h2>
+      <p>Welcome to our Wheat Disease Classification Project!</p>
+      <p>
+        Our project aims to revolutionize wheat disease detection by leveraging
+        the power of deep learning technology. With the increasing challenges
+        faced by farmers in ensuring crop health and productivity, timely and
+        accurate disease identification is crucial for effective crop
+        management.
+      </p>
+      <p>
+        Using state-of-the-art convolutional neural networks (CNNs),
+        specifically the VGG19 architecture, we have developed a robust model
+        capable of automatically classifying various wheat diseases with high
+        accuracy. By analyzing images of wheat plants, our model can identify
+        common diseases such as Crown and Root Rot, Leaf Rust, Yellow Rust,
+        Septoria, Wheat Loose Smut, and distinguish them from healthy wheat
+        plants.
+      </p>
+      <p>
+        The ultimate goal of our project is to empower farmers and agricultural
+        stakeholders with a user-friendly tool for early disease detection,
+        enabling timely interventions and improved crop yield and quality. By
+        harnessing the potential of AI-driven solutions, we aim to contribute to
+        sustainable agriculture practices and food security worldwide.
+      </p>
+    </div>
+
+    <!-- Preview Section -->
+    <div id="preview">
+      <h1>Preview</h1>
+      <h2>Wheat Disease Detection</h2>
+      <form
+        action="/predict"
+        method="post"
+        enctype="multipart/form-data"
+        id="upload-form"
+      >
+        <label for="file-upload">Choose a file</label>
+        <input
+          id="file-upload"
+          type="file"
+          name="image"
+          onchange="displayFile(this)"
+        />
+        <button type="submit">Upload</button>
+      </form>
+      <div id="file-display"></div>
+    </div>
+
+    <script>
+      function displayFile(input) {
+        const fileDisplay = document.getElementById("file-display");
+        const file = input.files[0];
+        if (file) {
+          const fileName = file.name;
+          const fileSize = (file.size / 1024).toFixed(2); // Convert bytes to KB
+          const image = document.createElement("img");
+          image.src = URL.createObjectURL(file); // Create a URL for the selected file
+          image.id = "uploaded-image";
+          fileDisplay.innerHTML = `<p>Selected file: ${fileName} (${fileSize} KB)</p>`;
+          fileDisplay.appendChild(image); // Append the image to the file display area
+        } else {
+          fileDisplay.innerHTML = ""; // Clear the file display if no file is selected
+        }
+      }
+    </script>
+  </body>
+</html>
