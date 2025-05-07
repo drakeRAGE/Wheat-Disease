@@ -16,3 +16,4 @@ email-validator
 flask-bcrypt
 scikit-learn
 gunicorn
+keras
